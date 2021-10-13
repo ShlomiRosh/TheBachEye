@@ -1,0 +1,65 @@
+import unittest
+from unittest.mock import patch, mock_open
+from Core.lessonConfiguration import LessonConfiguration, get_lesson_configuration
+
+
+class TestLessonConfiguration(unittest.TestCase):
+
+    def setUp(self):
+        self.mocked_success_text = 'SuccessCall'
+        self.mocked_failure_text = 'FailedCall'
+
+    def test_init(self):
+        with patch('requests.get') as mocked_get:
+            # test success call
+            mocked_get.return_value.ok = True
+            mocked_get.return_value.text = self.mocked_success_text
+
+            result = LessonConfiguration(None)
+            self.assertTrue(result.configuration.ok)
+            self.assertEqual(result.configuration.text, self.mocked_success_text)
+
+            # test failure call
+            mocked_get.return_value.ok = False
+            mocked_get.return_value.text = self.mocked_failure_text
+            result = LessonConfiguration(None)
+            self.assertFalse(result.configuration.ok)
+            self.assertEqual(result.configuration.text, self.mocked_failure_text)
+
+    def test_get_configuration(self):
+        with patch('requests.get') as mocked_get:
+            # test success call
+            mocked_get.return_value.ok = True
+            mocked_get.return_value.text = self.mocked_success_text
+
+            result = LessonConfiguration(None)
+            self.assertTrue(result.get_configuration().ok)
+            self.assertEqual(result.get_configuration().text, self.mocked_success_text)
+
+            # test failure call
+            mocked_get.return_value.ok = False
+            mocked_get.return_value.text = self.mocked_failure_text
+            result = LessonConfiguration(None)
+            self.assertFalse(result.get_configuration().ok)
+            self.assertEqual(result.get_configuration().text, self.mocked_failure_text)
+
+    def test_get_lesson_configuration(self):
+        with patch('requests.get') as mocked_get:
+            # test success call
+            mocked_get.return_value.ok = True
+            mocked_get.return_value.text = self.mocked_success_text
+
+            result = get_lesson_configuration(None)
+            self.assertTrue(result.ok)
+            self.assertEqual(result.text, self.mocked_success_text)
+
+            # test failure call
+            mocked_get.return_value.ok = False
+            mocked_get.return_value.text = self.mocked_failure_text
+            result = get_lesson_configuration(None)
+            self.assertFalse(result.ok)
+            self.assertEqual(result.text, self.mocked_failure_text)
+
+
+if __name__ == '__main__':
+    unittest.main()
