@@ -43,7 +43,10 @@ Red boxes indicate what happens when UI controllers respond to a bad action (e.g
 Written in Python3.7. Uses ManyCam Service to gain access to camera frames simultaneously with lesson platform application (such as: Zoom, Skype etc..).
 Image Processing and OpenCV - AI libraries are utilized to analyze frames, as well as other metrics (OnTop, SoundCheck) to determine the student's concentration during the live lesson. HTTP requests are then used to transmit the results to a remote web API server, hosted in Azure cloud, which connects to a SQL server database (hosted in Azure cloud as well).
 
+
 **Snapshots**
+
+
 ![](images/1.png)
 ![](images/2.png)
 ![](images/3.png)
